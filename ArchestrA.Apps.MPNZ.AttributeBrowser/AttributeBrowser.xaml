@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="ArchestrA.Apps.AttributeBrowser.aaAttributeBrowserApp2"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ArchestrA.Apps.MPNZ.AttributeBrowserApp"
+             mc:Ignorable="d" d:DesignWidth="476" Loaded="UserControl_Loaded" d:DesignHeight="218" Unloaded="UserControl_Unloaded">
+    <UserControl.DataContext>
+        <local:Object x:Name="_model" />
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <BitmapImage x:Key="BadIcon" UriSource="/ArchestrA.Apps.MPNZ.AttributeBrowserApp;component/Resources/Bad.png" />
+        <BitmapImage x:Key="CommsErrorIcon" UriSource="/ArchestrA.Apps.MPNZ.AttributeBrowserApp;component/Resources/CommunicationsFailure.png" />
+        <BitmapImage x:Key="ConfigErrorIcon" UriSource="/ArchestrA.Apps.MPNZ.AttributeBrowserApp;component/Resources/ConfigurationError.png" />
+        <BitmapImage x:Key="DeviceFailureIcon" UriSource="/ArchestrA.Apps.MPNZ.AttributeBrowserApp;component/Resources/DeviceFailure.png" />
+        <BitmapImage x:Key="InitializingIcon" UriSource="/ArchestrA.Apps.MPNZ.AttributeBrowserApp;component/Resources/Initializing.png" />
+        <BitmapImage x:Key="OpErrorIcon" UriSource="/ArchestrA.Apps.MPNZ.AttributeBrowserApp;component/Resources/OperationError.png" />
+        <BitmapImage x:Key="OutOfServiceErrorIcon" UriSource="/ArchestrA.Apps.MPNZ.AttributeBrowserApp;component/Resources/OutOfService.png" />
+        <BitmapImage x:Key="PendingIcon" UriSource="/ArchestrA.Apps.MPNZ.AttributeBrowserApp;component/Resources/Pending.png" />
+        <BitmapImage x:Key="WarningIcon" UriSource="/ArchestrA.Apps.MPNZ.AttributeBrowserApp;component/Resources/Warning.png" />
+        <BitmapImage x:Key="UncertainIcon" UriSource="/ArchestrA.Apps.MPNZ.AttributeBrowserApp;component/Resources/Uncertain.png" />
+        <local:BoolToVisibilityConverter x:Key="BoolToCollapsedConverter" />
+        <local:QualityToVisibilityConverter x:Key="QualityToCollapsedConverter" />
+    </UserControl.Resources>
+    <Grid>
+        <ListView x:Name="listView" Margin="0,0,0,20" ItemsSource="{Binding FilteredAttributes}" >
+            <ListView.Resources>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=InAlarm}" Value="True">
+                            <Setter Property="Background" Value="LightPink" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=Text }" />
+                </Style>
+            </ListView.Resources>
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem IsChecked="False" IsCheckable="True" Header="Show Name" x:Name="mnuShowName" />
+                    <MenuItem IsChecked="True" IsCheckable="True" Header="Show Description" x:Name="mnuShowDescription" />
+                    <MenuItem IsChecked="False" IsCheckable="True" Header="Show Quality" x:Name="mnuShowQuality"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
+            <ListView.View>
+                <GridView x:Name="gridView">
+                    <GridViewColumn>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="-6,0,0,0">
+                                    <Image Height="16" Source="{StaticResource WarningIcon}" Visibility="{Binding InAlarm, Converter={StaticResource BoolToCollapsedConverter}}"  />
+                                    <Image Height="16" Source="{StaticResource InitializingIcon}"  Visibility="{Binding Quality, Converter={StaticResource QualityToCollapsedConverter}, ConverterParameter=32}"  />
+                                    <Image Height="16" Source="{StaticResource BadIcon}"  Visibility="{Binding Quality, Converter={StaticResource QualityToCollapsedConverter}, ConverterParameter=0}"  />
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Name}">
+                        <GridViewColumnHeader Content="Name" Visibility="{Binding IsChecked, ElementName=mnuShowName, Converter={StaticResource BoolToCollapsedConverter}}" local:GridViewBehaviours.CollapseableColumn="True" />
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Description}" >
+                        <GridViewColumnHeader Content="Description" Visibility="{Binding IsChecked, ElementName=mnuShowDescription, Converter={StaticResource BoolToCollapsedConverter}}" local:GridViewBehaviours.CollapseableColumn="True" />
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Value}" >
+                        <GridViewColumnHeader Content="Value" />
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Quality}" >
+                        <GridViewColumnHeader Content="Quality" Visibility="{Binding IsChecked, ElementName=mnuShowQuality, Converter={StaticResource BoolToCollapsedConverter}}" local:GridViewBehaviours.CollapseableColumn="True" />
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+            
+        </ListView>
+        <StatusBar Height="20" VerticalAlignment="Bottom">
+            <TextBlock Text="{Binding Message}" />
+        </StatusBar>
+    </Grid>
+</UserControl>

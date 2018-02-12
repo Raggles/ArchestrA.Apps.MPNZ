@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<AppManifest AppVersion="1.0.0">
+  <Filters>
+    <!--List all the Controls that need to be exposed to the ArchestrA IDE user to utilize them in a View Application. 
+    Only the controls listed here will be available for the IDE users to place them on panes within a Layout or a ViewApp.-->
+    <Control  AssemblyName="ArchestrA.Apps.MPNZ.TitleBarApp" ControlFullName="ArchestrA.Apps.MPNZ.TitleBarApp.TitleBarControl">
+      <!--List the public properties on this control that need to be exposed when user is configuring this control in a Layout or 
+      a VieewApp. The Property Editor within the Layout Editor and ViewApp Editor includes these properties when this control is 
+      selected and allows the user configure new default values.-->
+      <Property Name="Foreground"  />
+      <Property Name="Background" />
+      <Property Name="PrimaryFontFamily" />
+      <Property Name="PrimaryFontSize" />
+      <Property Name="HasSecondary" />
+      <Property Name="SecondaryFontFamily" />
+      <Property Name="SecondaryFontSize" />
+      <Property Name="Title" />
+      <Property Name="HomeArea" />
+      <Property Name="NavigationTitleArea" />
+      <Property Name="KeyboardArea" />
+      <Property Name="LoginArea" />
+      <Property Name="LanguageArea" />
+      <Property Name="DateArea" />
+      <Property Name="TimeArea" />
+      <Property Name="DateTimeArea" />
+      <Property Name="CanCloseViewApp" />
+      <Property Name="CanMinimize" />
+      <Property Name="CanMaximize"  />
+      <Property Name="CanClose"  />
+    </Control>
+  </Filters>
+</AppManifest>

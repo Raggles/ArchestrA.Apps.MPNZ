@@ -57,6 +57,8 @@ namespace ArchestrA.Apps.MPNZ.AttributeBrowserApp
                 {
                     //we need to start this on a new thread otherwise we can't make other calls to the RuntimeDataClient
                     string[] attributes = (string[])i.VTQ.Value.Array;
+                    if (attributes == null)
+                        return;
                     new Thread(() =>
                     {
                         Thread.CurrentThread.IsBackground = true;

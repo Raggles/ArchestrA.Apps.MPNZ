@@ -50,8 +50,8 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" Margin="-6,0,0,0">
                                     <Image Height="16" Source="{StaticResource WarningIcon}" Visibility="{Binding InAlarm, Converter={StaticResource BoolToCollapsedConverter}}"  />
-                                    <Image Height="16" Source="{StaticResource InitializingIcon}"  Visibility="{Binding Quality, Converter={StaticResource QualityToCollapsedConverter}, ConverterParameter=32}"  />
-                                    <Image Height="16" Source="{StaticResource BadIcon}"  Visibility="{Binding Quality, Converter={StaticResource QualityToCollapsedConverter}, ConverterParameter=0}"  />
+                                    <Image Height="16" Source="{StaticResource InitializingIcon}"  Visibility="{Binding MxQuality, Converter={StaticResource QualityToCollapsedConverter}, ConverterParameter=32}"  />
+                                    <Image Height="16" Source="{StaticResource BadIcon}"  Visibility="{Binding MxQuality, Converter={StaticResource QualityToCollapsedConverter}, ConverterParameter=0}"  />
                                 </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -65,7 +65,7 @@
                     <GridViewColumn DisplayMemberBinding="{Binding Value}" >
                         <GridViewColumnHeader Content="Value" />
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Quality}" >
+                    <GridViewColumn DisplayMemberBinding="{Binding MxQuality}" >
                         <GridViewColumnHeader Content="Quality" Visibility="{Binding IsChecked, ElementName=mnuShowQuality, Converter={StaticResource BoolToCollapsedConverter}}" local:GridViewBehaviours.CollapseableColumn="True" />
                     </GridViewColumn>
                 </GridView>

@@ -51,7 +51,8 @@
                                 <StackPanel Orientation="Horizontal" Margin="-6,0,0,0">
                                     <Image Height="16" Source="{StaticResource WarningIcon}" Visibility="{Binding InAlarm, Converter={StaticResource BoolToCollapsedConverter}}"  />
                                     <Image Height="16" Source="{StaticResource InitializingIcon}"  Visibility="{Binding MxQuality, Converter={StaticResource QualityToCollapsedConverter}, ConverterParameter=32}"  />
-                                    <Image Height="16" Source="{StaticResource BadIcon}"  Visibility="{Binding MxQuality, Converter={StaticResource QualityToCollapsedConverter}, ConverterParameter=0}"  />
+                                    <Image Height="16" Source="{StaticResource ConfigErrorIcon}"  Visibility="{Binding MxQuality, Converter={StaticResource QualityToCollapsedConverter}, ConverterParameter=0}"  />
+                                    <Image Height="16" Source="{StaticResource BadIcon}"  Visibility="{Binding MxQuality, Converter={StaticResource QualityToCollapsedConverter}, ConverterParameter=20}"  />
                                 </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

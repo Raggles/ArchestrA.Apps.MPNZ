@@ -10,9 +10,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ArchestrA.Apps.MPNZ.TitleBarApp</RootNamespace>
     <AssemblyName>ArchestrA.Apps.MPNZ.TitleBarApp</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,33 +35,35 @@
   <ItemGroup>
     <Reference Include="ArchestrA.Client.CommonUtil, Version=1.0.0.0, Culture=neutral, PublicKeyToken=23106a86e706d0ae, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Libs\ArchestrA.Client.CommonUtil.dll</HintPath>
+      <HintPath>..\..\aaAttributeBrowser\References\ArchestrA.Client.CommonUtil.dll</HintPath>
     </Reference>
     <Reference Include="ArchestrA.Client.RuntimeData, Version=1.0.0.0, Culture=neutral, PublicKeyToken=23106a86e706d0ae, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Libs\ArchestrA.Client.RuntimeData.dll</HintPath>
+      <HintPath>..\..\aaAttributeBrowser\References\ArchestrA.Client.RuntimeData.dll</HintPath>
     </Reference>
     <Reference Include="ArchestrA.Client.ViewApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=23106a86e706d0ae, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Libs\ArchestrA.Client.ViewApp.dll</HintPath>
+      <HintPath>..\..\aaAttributeBrowser\References\ArchestrA.Client.ViewApp.dll</HintPath>
     </Reference>
     <Reference Include="MaterialDesignColors, Version=1.1.2.0, Culture=neutral, PublicKeyToken=23106a86e706d0ae, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\SharedLibs\MaterialDesignColors.dll</HintPath>
+      <HintPath>..\..\aaAttributeBrowser\References\MaterialDesignColors.dll</HintPath>
     </Reference>
     <Reference Include="MaterialDesignThemes.Wpf, Version=1.2.0.17060, Culture=neutral, PublicKeyToken=23106a86e706d0ae, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\SharedLibs\MaterialDesignThemes.Wpf.dll</HintPath>
+      <HintPath>..\..\aaAttributeBrowser\References\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Expression\Blend\.NETFramework\v4.5\Libraries\System.Windows.Interactivity.dll</HintPath>
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
@@ -109,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Fakes\ArchestrA.Apps.TitleBarApp.fakes" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

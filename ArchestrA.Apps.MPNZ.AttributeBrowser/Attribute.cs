@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArchestrA.Diagnostics;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -15,7 +16,7 @@ namespace ArchestrA.Apps.MPNZ.AttributeBrowserApp
         private int _quality;
         private bool _inAlarm;
         private DateTime _timeStamp;
-        private Object _parentObject;
+        private ArchestrAObject _parentObject;
         private Type _type = typeof(string);
         private string _engUnit;
         private object _value = "";
@@ -32,7 +33,7 @@ namespace ArchestrA.Apps.MPNZ.AttributeBrowserApp
             set
             {
                 _name = value;
-                OnProptertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -68,7 +69,7 @@ namespace ArchestrA.Apps.MPNZ.AttributeBrowserApp
             set
             {
                 _value = value;
-                OnProptertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -84,7 +85,7 @@ namespace ArchestrA.Apps.MPNZ.AttributeBrowserApp
             set
             {
                 _description = value;
-                OnProptertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -100,7 +101,7 @@ namespace ArchestrA.Apps.MPNZ.AttributeBrowserApp
             set
             {
                 _quality = value;
-                OnProptertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -116,7 +117,7 @@ namespace ArchestrA.Apps.MPNZ.AttributeBrowserApp
             set
             {
                 _inAlarm = value;
-                OnProptertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -132,14 +133,14 @@ namespace ArchestrA.Apps.MPNZ.AttributeBrowserApp
             set
             {
                 _timeStamp = value;
-                OnProptertyChanged();
+                OnPropertyChanged();
             }
         }
         
         /// <summary>
         /// The object that the attribute belongs to
         /// </summary>
-        private Object ParentObject
+        private ArchestrAObject ParentObject
         {
             get
             {
@@ -148,7 +149,7 @@ namespace ArchestrA.Apps.MPNZ.AttributeBrowserApp
             set
             {
                 _parentObject = value;
-                OnProptertyChanged();
+                OnPropertyChanged();
             }
         }
         
@@ -164,7 +165,7 @@ namespace ArchestrA.Apps.MPNZ.AttributeBrowserApp
             set
             {
                 _type = value;
-                OnProptertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -180,7 +181,8 @@ namespace ArchestrA.Apps.MPNZ.AttributeBrowserApp
             set
             {
                 _engUnit = value;
-                OnProptertyChanged();
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(Value));
             }
         }
 
@@ -218,7 +220,7 @@ namespace ArchestrA.Apps.MPNZ.AttributeBrowserApp
         /// <param name="name">The name of the attribute</param>
         /// <param name="items">A list of all the sub-attributes that belong to this attribute</param>
         /// <param name="parent">The parent object for the attribute</param>
-        public Attribute(string name, List<string> items, Object parent)
+        public Attribute(string name, List<string> items, ArchestrAObject parent)
         {
             Name = name;
             ParentObject = parent;
@@ -321,13 +323,13 @@ namespace ArchestrA.Apps.MPNZ.AttributeBrowserApp
                 case DataItemPurpose.Value:
                     Type = v.DataValue.GetType();
                     _value = v.DataValue;
-                    OnProptertyChanged(nameof(Value));
+                    OnPropertyChanged(nameof(Value));
                     TimeStamp = v.Timestamp;
                     break;
                 case DataItemPurpose.StatusAndValue:
                     Type = v.DataValue.GetType();
                     _value = v.DataValue;
-                    OnProptertyChanged(nameof(Value));
+                    OnPropertyChanged(nameof(Value));
                     TimeStamp = v.Timestamp;
                     MxQuality = v.MxQuality;
                     break;
@@ -337,7 +339,7 @@ namespace ArchestrA.Apps.MPNZ.AttributeBrowserApp
             }
         }
 
-        private void OnProptertyChanged([CallerMemberName] string name = "")
+        private void OnPropertyChanged([CallerMemberName] string name = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }

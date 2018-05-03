@@ -12,7 +12,7 @@ namespace ArchestrA.Apps.MPNZ.AttributeBrowserApp
     /// <summary>
     /// An ArchestrA object
     /// </summary>
-    public class Object : INotifyPropertyChanged
+    public class ArchestrAObject : INotifyPropertyChanged
     {
         private Dispatcher _d;//we need a dispatcher to update the observable collection, and for some reason Application.Current.Dispatcher doesn't work
         private List<Attribute> Attributes { get; set; } = new List<Attribute>();
@@ -165,7 +165,7 @@ namespace ArchestrA.Apps.MPNZ.AttributeBrowserApp
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        public Object()
+        public ArchestrAObject()
         {
             try
             {

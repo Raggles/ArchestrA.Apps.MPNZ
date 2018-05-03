@@ -1,4 +1,5 @@
 ﻿using ArchestrA.Client.RuntimeData;
+using ArchestrA.Diagnostics;
 using System;
 using System.Collections.Specialized;
 using System.IO;
@@ -8,10 +9,29 @@ using System.Windows.Controls;
 
 namespace ArchestrA.Apps.AttributeBrowser
 {
-    public partial class aaAttributeBrowserApp2 : UserControl, IRuntimeDataClient
+    public partial class AttributeBrowser : UserControl, IRuntimeDataClient
     {
         private long _lastResizeTime = 0;
+        public static readonly DependencyProperty ObjectSourceProperty = DependencyProperty.Register("ObjectSource", typeof(string), typeof(AttributeBrowser), new FrameworkPropertyMetadata( ObjectSourceChanged));
+
         
+        public static void ObjectSourceChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
+        {
+            if (obj == null || args.NewValue == null)
+                return;
+            ((AttributeBrowser)obj).ChangeName(args.NewValue.ToString());
+        }
+
+        public string ObjectSource
+        {
+            get { return (string)this.GetValue(ObjectSourceProperty); }
+            set { this.SetValue(ObjectSourceProperty, value); }
+        }
+
+        public bool UseCurrentAsset { get; set; } = false;
+        public bool UpdateOnSourceChanged { get; set; } = false;
+
+
         private DataSubscription _dataSubscription;
 
         /// <summary>
@@ -33,7 +53,7 @@ namespace ArchestrA.Apps.AttributeBrowser
             }
         }
 
-        public aaAttributeBrowserApp2()
+        public AttributeBrowser()
         {
             InitializeComponent();
         }
@@ -45,7 +65,10 @@ namespace ArchestrA.Apps.AttributeBrowser
                 ArchestrA.Client.MyViewApp.Navigation.PropertyChanged += Navigation_PropertyChanged;
             }
             catch { }
-            _model.Name  = Client.MyViewApp.Navigation.CurrentAsset;
+            if (UseCurrentAsset)
+                _model.Name = Client.MyViewApp.Navigation.CurrentAsset;
+            else
+                _model.Name = ObjectSource;
             _model.DataChanged += _model_DescriptionUpdated;
             _model.SubscribeAttributes();
         }
@@ -57,12 +80,20 @@ namespace ArchestrA.Apps.AttributeBrowser
 
         private void Navigation_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(Client.MyViewApp.Navigation.CurrentAsset))
+            if (UseCurrentAsset)
             {
-                _model.Unsubscribe();
-                _model.Name =  Client.MyViewApp.Navigation.CurrentAsset;
-                _model.SubscribeAttributes();
+                if (!string.IsNullOrEmpty(Client.MyViewApp.Navigation.CurrentAsset))
+                {
+                    ChangeName(Client.MyViewApp.Navigation.CurrentAsset);
+                }
             }
+        }
+
+        public void ChangeName(string name)
+        {
+            _model.Unsubscribe();
+            _model.Name = name;
+            _model.SubscribeAttributes();
         }
 
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)
@@ -74,8 +105,7 @@ namespace ArchestrA.Apps.AttributeBrowser
                     ArchestrA.Client.MyViewApp.Navigation.PropertyChanged -= Navigation_PropertyChanged;
                 }
                 catch { }
-                //it seems that if we unsubscribe after the control is closed then its too late
-                //_model.Unsubscribe();
+                _model.Unsubscribe();
             }
             catch { }
         }
@@ -139,6 +169,11 @@ namespace ArchestrA.Apps.AttributeBrowser
                 if (desc != null)
                     desc.Width = listView.ActualWidth - sum - SystemParameters.VerticalScrollBarWidth;
             });
+        }
+
+        private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            //Logger.LogInfo(() => string.Format("Visibility change to {0}", (e.NewValue).ToString()));
         }
     }
 }

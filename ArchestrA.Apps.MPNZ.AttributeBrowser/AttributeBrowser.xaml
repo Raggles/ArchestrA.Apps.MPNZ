@@ -1,12 +1,12 @@
-﻿<UserControl x:Class="ArchestrA.Apps.AttributeBrowser.aaAttributeBrowserApp2"
+﻿<UserControl x:Class="ArchestrA.Apps.AttributeBrowser.AttributeBrowser"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ArchestrA.Apps.MPNZ.AttributeBrowserApp"
-             mc:Ignorable="d" d:DesignWidth="476" Loaded="UserControl_Loaded" d:DesignHeight="218" Unloaded="UserControl_Unloaded">
+             mc:Ignorable="d" d:DesignWidth="476" Loaded="UserControl_Loaded" d:DesignHeight="218" Unloaded="UserControl_Unloaded" IsVisibleChanged="UserControl_IsVisibleChanged">
     <UserControl.DataContext>
-        <local:Object x:Name="_model" />
+        <local:ArchestrAObject x:Name="_model" />
     </UserControl.DataContext>
     <UserControl.Resources>
         <BitmapImage x:Key="BadIcon" UriSource="/ArchestrA.Apps.MPNZ.AttributeBrowserApp;component/Resources/Bad.png" />

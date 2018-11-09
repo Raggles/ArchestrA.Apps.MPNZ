@@ -13,7 +13,7 @@ namespace ArchestrA.Apps.AttributeBrowser
     {
         private long _lastResizeTime = 0;
         public static readonly DependencyProperty ObjectSourceProperty = DependencyProperty.Register("ObjectSource", typeof(string), typeof(AttributeBrowser), new FrameworkPropertyMetadata( ObjectSourceChanged));
-
+        private bool _assetSet = false;
         
         public static void ObjectSourceChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
         {
@@ -30,7 +30,12 @@ namespace ArchestrA.Apps.AttributeBrowser
 
         public bool UseCurrentAsset { get; set; } = false;
         public bool UpdateOnSourceChanged { get; set; } = false;
-
+        
+        public void SetAsset()
+        {
+            if (ObjectSource != "")
+                _assetSet = true;
+        }
 
         private DataSubscription _dataSubscription;
 
@@ -91,6 +96,7 @@ namespace ArchestrA.Apps.AttributeBrowser
 
         public void ChangeName(string name)
         {
+            if (UpdateOnSourceChanged || !_assetSet)
             _model.Unsubscribe();
             _model.Name = name;
             _model.SubscribeAttributes();
